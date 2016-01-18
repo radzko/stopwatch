@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Stopwatch</title>
+    <script>
+        
+       window.onload = function() {
+           document.getElementById("start").onclick = function(){
+               changeStopwatch();
+            }
+           
+            document.getElementById("stop").onclick = function(){
+               clearTimeout(timeoutHandler);
+            }     
+            
+            document.getElementById("clear").onclick = function(){ 
+                millisecond = 0;
+                second = 0;
+                minute = 0;
+                hour = 0;
+                
+                document.getElementById("stopwatch").innerHTML = "00:00:00.00";
+            }
+            
+       }
+        
+        var millisecond = 0;
+        var second = 0;
+        var minute = 0;
+        var hour = 0;
+        var timeoutHandler;
+            
+        function changeStopwatch(){
+            millisecond = millisecond + 1;
+            if(millisecond >= 100){ millisecond=0; second=second+1; }
+            if(second >= 60){ second=0; minute=minute+1; }
+            if(minute >= 60){ minute=0; hour=hour+1; }
+
+            if(millisecond < 10) var milsec="0"+millisecond; else milsec=millisecond;
+            if(second < 10) var sec="0"+second; else sec=second;
+            if(minute < 10) var min="0"+minute; else min=minute;
+            if(hour < 10) var hours="0"+hour; else hours=hour;
+
+            document.getElementById("stopwatch").innerHTML = hours + ":" + min + ":" + sec + "." + milsec;
+            
+            timeoutHandler = setTimeout("changeStopwatch()", 10);
+        } 
+        
+       
+
+    </script>
+</head>
+<body>
+    <p id="stopwatch">00:00:00.00</p>
+    <input id="start" type="button" value="Start" />
+    <input id="stop" type="button" value="Stop" />
+    <input id="clear" type="button" value="Clear" />
+</body>
+</html>
